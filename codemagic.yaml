@@ -4,7 +4,7 @@ workflows:
     max_build_duration: 120
     instance_type: mac_mini_m2
     integrations:
-      app_store_connect: BlasonsDuGrandLyonAPIKey
+      app_store_connect: BlasonsDuGrandLyonNew
     environment:
       ios_signing:
         distribution_type: app_store
@@ -40,15 +40,6 @@ workflows:
       - $HOME/Library/Developer/Xcode/DerivedData/Build/*.app
       - $HOME/Library/Developer/Xcode/DerivedData/Build/*.dSYM
     publishing:
-      email:
-        recipients:
-          - markdashevskiy31@gmail.com
-        notify:
-          success: true
-          failure: true
-      app_store_connect:
-        auth: integration
-        submit_to_testflight: true
-        beta_groups:
-          - Testers
-        submit_to_app_store: true
+          app_store_connect:
+            auth: integration
+            submit_to_app_store: true
