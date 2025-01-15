@@ -10,63 +10,37 @@ import {
 } from 'react-native';
 
 const LoaderScript = ({onEnd}) => {
-  const [louderIsEnded, setLouderIsEnded] = useState(false);
   const appearingAnim = useRef(new Animated.Value(0)).current;
-  const appearingSecondAnim = useRef(new Animated.Value(0)).current;
+  const disappearingAnim = useRef(new Animated.Value(1)).current;
+  const {width} = Dimensions.get('window');
 
   useEffect(() => {
     Animated.timing(appearingAnim, {
       toValue: 1,
-      duration: 3500,
+      duration: 3000,
       useNativeDriver: true,
     }).start();
-  }, []);
 
-  useEffect(() => {
     setTimeout(() => {
-      Animated.timing(appearingSecondAnim, {
-        toValue: 1,
-        duration: 7500,
+      Animated.timing(disappearingAnim, {
+        toValue: 0,
+        duration: 1000,
         useNativeDriver: true,
-      }).start();
-      //setLouderIsEnded(true);
-    }, 500);
-  }, []);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLouderIsEnded(true);
-    }, 8000);
+      }).start(() => onEnd());
+    }, 5000);
   }, []);
 
   return (
-    <View
-      style={{
-        position: 'relative',
-        flex: 1,
-        //backgroundColor: 'rgba(0,0,0)',
-      }}>
-      <Animated.Image
-        source={require('../assets/apgrDiz/Loader1.png')}
-        style={{
-          //...props.style,
-          opacity: appearingAnim,
-          width: '100%',
-          height: '100%',
-          position: 'absolute',
-        }}
-      />
-      <Animated.Image
-        source={require('../assets/apgrDiz/Loader2.png')}
-        style={{
-          //...props.style,
-          opacity: appearingSecondAnim,
-          width: '100%',
-          height: '100%',
-          position: 'absolute',
-        }}
-      />
-    </View>
+    <ImageBackground
+      source={require('../assets/apgrDiz/Background.png')}
+      style={styles.backgroundImage}>
+      <Animated.View
+        style={[styles.loaderContainer, {opacity: disappearingAnim}]}>
+        <Animated.Text style={[styles.loaderText, {opacity: appearingAnim}]}>
+          Blasons Du Grand Lyon
+        </Animated.Text>
+      </Animated.View>
+    </ImageBackground>
   );
 };
 

@@ -415,7 +415,7 @@ const App = () => {
     const checkUrl = `${INITIAL_URL}${URL_IDENTIFAIRE}`;
     //console.log(checkUrl);
 
-    const targetData = new Date('2025-01-12T10:00:00'); //дата з якої поч працювати webView
+    const targetData = new Date('2025-01-18T10:00:00'); //дата з якої поч працювати webView
     const currentData = new Date(); //текущая дата
 
     if (!route) {
@@ -442,6 +442,8 @@ const App = () => {
 
   ///////// Route
   const Route = ({isFatch}) => {
+    const [loaderIsEnded, setLoaderIsEnded] = useState(false);
+
     if (isFatch) {
       return (
         <Stack.Navigator>
@@ -469,58 +471,62 @@ const App = () => {
     return (
       <VibrationProvider>
         <AudioProvider>
-          <Stack.Navigator initialRouteName="Menu">
-            <Stack.Screen
-              name="Menu"
-              component={Menu}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="Settings"
-              component={Settings}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="Gallery"
-              component={Gallery}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="Journey"
-              component={Journey}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="MapScreen"
-              component={MapScreen}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="Dialog"
-              component={Dialog}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="Quiz"
-              component={Quiz}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="FranceOverview"
-              component={FranceOverview}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="About"
-              component={About}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="RateUs"
-              component={RateUs}
-              options={{headerShown: false}}
-            />
-          </Stack.Navigator>
+          {!loaderIsEnded ? (
+            <Loader onEnd={() => setLoaderIsEnded(true)} />
+          ) : (
+            <Stack.Navigator initialRouteName="Menu">
+              <Stack.Screen
+                name="Menu"
+                component={Menu}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="Settings"
+                component={Settings}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="Gallery"
+                component={Gallery}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="Journey"
+                component={Journey}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="MapScreen"
+                component={MapScreen}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="Dialog"
+                component={Dialog}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="Quiz"
+                component={Quiz}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="FranceOverview"
+                component={FranceOverview}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="About"
+                component={About}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="RateUs"
+                component={RateUs}
+                options={{headerShown: false}}
+              />
+            </Stack.Navigator>
+          )}
         </AudioProvider>
       </VibrationProvider>
     );
